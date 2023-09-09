@@ -1,5 +1,7 @@
 import pygame, sys
 
+pygame.init()
+
 # Constants
 WIDTH, HEIGHT = 900, 350
 WHITE = (255, 255, 255)
@@ -39,7 +41,7 @@ player_speed = 10
 font = pygame.font.Font("freesansbold.ttf", 32)
 
 # wall position
-walls = []
+walls_lvl1 = []
 
 
 # Methods
@@ -55,7 +57,7 @@ def positionWall(i):
             y = 50
 
         screen.blit(wall_lg, (x, y))
-        walls.append((x, y))
+        walls_lvl1.append((x, y))
 
 
 # Position of player
