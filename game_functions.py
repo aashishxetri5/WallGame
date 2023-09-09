@@ -26,10 +26,11 @@ checkLine_s = checkLine_f = pygame.image.load(
     "F:/Study Materials/Python/WallGame/res/graphics/checkLine.png"
 )
 
-
-# Loading music
-# pygame.mixer.music.load("./res/music/gb_music.wav")
-
+# Loading Music
+collision = pygame.mixer.Sound(
+    "F:/Study Materials/Python/WallGame/res/music/killed.wav"
+)
+pygame.mixer.Sound("F:/Study Materials/Python/WallGame/res/music/song.wav").play(-1)
 
 # Player initial position
 player_x = 20
@@ -98,6 +99,8 @@ def gameOver(result, time):
     else:
         score = 0
         text = font.render("GAME OVER!! Score: 0", True, BLACK)
+        collision.set_volume(1)
+        collision.play()
 
     text_rect = text.get_rect(center=(x_pos, y_pos))
     screen.blit(text, text_rect)
