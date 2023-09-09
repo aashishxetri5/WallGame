@@ -1,7 +1,5 @@
 from game_functions import *
 
-pygame.init()
-
 # Main game loop and events
 def game_level1(player_x, player_y, player_speed, walls, startTime):
     running = True
