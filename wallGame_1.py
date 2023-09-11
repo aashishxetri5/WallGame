@@ -1,14 +1,15 @@
 from game_functions import *
 
+
 # Main game loop and events
 def game_level1(player_x, player_y, player_speed, walls, startTime):
     running = True
+    win = False
     while running:
-        pygame.time.delay(100)
         screen.fill(BG)
 
         # draw Start and Finish lines
-        screen.blit(checkLine_s, (0, 0))
+        screen.blit(checkLine_s, (0, HEIGHT // 2), (0, HEIGHT // 2, 100, 100))
         screen.blit(checkLine_f, (screen.get_width() - 50, 0))
 
         # draw walls
@@ -24,30 +25,17 @@ def game_level1(player_x, player_y, player_speed, walls, startTime):
                 pygame.quit()
                 sys.exit()
 
-        # Check for key press
-        key = pygame.key.get_pressed()
-
-        # Move player according to key pressed
-        if key[pygame.K_RIGHT] and player_x < screen.get_width() - 50:  # Move right
-            player_x += player_speed
-        elif key[pygame.K_UP] and player_y > 0:  # Move up
-            player_y -= player_speed
-        elif key[pygame.K_DOWN] and player_y < screen.get_height() - 50:  # Move down
-            player_y += player_speed
-
-        # check collision
-
-        for wall in walls:
-            if hasCollied(wall[0], wall[1], player_x, player_y):
-                endTime = pygame.time.get_ticks()
-                gameOver(False, str((endTime - startTime) / 1000))
-                running = False
-
-            if hasWon(player_x, player_y):
-                endTime = pygame.time.get_ticks()
-                gameOver(True, str((endTime - startTime) / 1000))
-                running = False
+        player_x, player_y, running, win = mainControls(
+            startTime, walls, 1, player_x, player_y, player_speed, running
+        )
 
         pygame.display.update()
 
-    return running
+    return win
+
+
+def rungame_1():
+    startTime = pygame.time.get_ticks()
+    status = game_level1(player_x, player_y, player_speed, walls_lvl1, startTime)
+    pygame.time.delay(2000)
+    return status  # returns true is the game level is complete
